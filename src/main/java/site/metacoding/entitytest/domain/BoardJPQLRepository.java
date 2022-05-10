@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
+import org.qlrm.mapper.JpaResultMapper;
 import org.springframework.stereotype.Repository;
 
 import lombok.RequiredArgsConstructor;
@@ -17,6 +18,8 @@ public class BoardJPQLRepository {
 
     private final EntityManager em;
 
+    // createQuery -> 디비 모델과 타입이 같아야 한다. -> BoardRepository 사용하세요 차라리!!
+    // createNativeQuery -> 진짜 내맘대로 쿼리 (PrepareStatement)
     public BoardDetailRespDto mFindDetail(Integer id) {
         String sql = "SELECT b.*, true FROM board b WHERE id = ?";
         Query query = em.createNativeQuery(sql)
@@ -49,6 +52,16 @@ public class BoardJPQLRepository {
             BoardDetailRespDto dto = new BoardDetailRespDto(boardId, title, content, isLove);
             dtos.add(dto);
         }
+
+        return dtos;
+    }
+
+    public List<BoardDetailRespDto> mFindAllQLRM() {
+        String sql = "SELECT b.*, true FROM board b";
+        Query query = em.createNativeQuery(sql);
+
+        JpaResultMapper mapper = new JpaResultMapper();
+        List<BoardDetailRespDto> dtos = mapper.list(query, BoardDetailRespDto.class);
 
         return dtos;
     }

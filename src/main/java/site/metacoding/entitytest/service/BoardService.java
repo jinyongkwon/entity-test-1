@@ -35,5 +35,6 @@ public class BoardService {
 
     public List<BoardDetailRespDto> 전체보기() {
         return boardJPQLRepository.mFindAll();
+        // return boardJPQLRepository.mFindAllQLRM();
     }
 }
