@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
 import site.metacoding.entitytest.domain.Board;
-import site.metacoding.entitytest.domain.BoardJPQLRepository;
 import site.metacoding.entitytest.domain.BoardRepository;
 import site.metacoding.entitytest.web.dto.BoardDetailRespDto;
 import site.metacoding.entitytest.web.dto.BoardRespDto;
@@ -15,8 +14,7 @@ import site.metacoding.entitytest.web.dto.BoardRespDto;
 @Service
 public class BoardService {
 
-    private final BoardRepository boardRepository; // API
-    private final BoardJPQLRepository boardJPQLRepository; // JPQL
+    private final BoardRepository boardRepository;
 
     public BoardRespDto 상세보기(Integer id) {
         Board boardEntity = boardRepository.findById(id).get();
@@ -30,11 +28,11 @@ public class BoardService {
     }
 
     public BoardDetailRespDto 좋아요포함상세보기(Integer id) {
-        return boardJPQLRepository.mFindDetail(id);
+        return boardRepository.mFindDetail(id);
     }
 
     public List<BoardDetailRespDto> 전체보기() {
-        return boardJPQLRepository.mFindAll();
+        return boardRepository.mFindAll();
         // return boardJPQLRepository.mFindAllQLRM();
     }
 }
