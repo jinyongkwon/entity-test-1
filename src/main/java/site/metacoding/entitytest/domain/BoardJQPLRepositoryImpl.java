@@ -14,7 +14,7 @@ import site.metacoding.entitytest.web.dto.BoardDetailRespDto;
 
 @RequiredArgsConstructor
 @Repository
-public class BoardJPQLRepository {
+public class BoardJQPLRepositoryImpl implements BoardJQPLRepository {
 
     private final EntityManager em;
 
